@@ -32,8 +32,16 @@ def env_int(name: str, default: int) -> int:
     return int(value)
 
 
+def env_bool(name: str, default: bool) -> bool:
+    value = os.getenv(name)
+    if value is None or value == "":
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 @dataclass(frozen=True)
 class Settings:
+    dry_run: bool
     min_quote_volume_usd: float
     max_symbols_per_exchange: int
     output_dir: Path
@@ -47,6 +55,7 @@ class Settings:
     def from_env(cls) -> "Settings":
         load_dotenv()
         return cls(
+            dry_run=env_bool("DRY_RUN", True),
             min_quote_volume_usd=env_float("MIN_QUOTE_VOLUME_USD", 50_000_000),
             max_symbols_per_exchange=env_int("MAX_SYMBOLS_PER_EXCHANGE", 50),
             output_dir=Path(os.getenv("OUTPUT_DIR", "data")),
