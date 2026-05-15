@@ -48,6 +48,7 @@ class Scanner:
         paper_path = append_paper_trades(results, self.settings.output_dir)
         sent = self.telegram.send_alerts(results)
         artifacts = {
+            "dry_run": str(self.settings.dry_run).lower(),
             "json": str(json_path),
             "csv": str(csv_path),
             "latest": str(latest_path),
