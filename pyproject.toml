@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crypto-futures-scanner"
+version = "0.1.0"
+description = "Scanner-first crypto futures agent with paper trading and Telegram alerts."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Biboombi" }]
+dependencies = []
+
+[project.scripts]
+crypto-futures-scanner = "scanner_agent.cli:main"
+
+[tool.setuptools]
+packages = ["scanner_agent"]
